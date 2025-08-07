@@ -9,12 +9,6 @@ public abstract class Producto {
     private double priceBuyxMeters;
 
 
-    //calculados
-    private double ganancia;
-    private double montoDeVenta;
-    private double montoDeCompra;
-
-
     public Producto(String productName, int amount, double widthMeters, double heightMeters, double priceBuyxMeters, double priceSellxMeters) {
         this.productName = productName;
         this.amount = amount;

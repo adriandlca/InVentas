@@ -3,6 +3,7 @@ package Views;
 import Controller.ClearTableController;
 import Controller.UpdateTableController;
 import Entities.Producto;
+import Entities.ProductoPorMetro;
 import Exceptions.InvalidNumberFieldException;
 import Validators.ValidarFormularioDelProducto;
 
@@ -91,7 +92,7 @@ public class Principal {
                     double precioCompraxMetroV = Double.parseDouble(txtPrecioCompraxMetro.getText());
                     double anchoV = Double.parseDouble(txtAncho.getText());
                     double largoV = Double.parseDouble(txtLargo.getText());
-                    Producto producto = new Producto(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
+                    Producto producto = new ProductoPorMetro(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
                     listaProductos.add(producto);
                 }
             }catch (InvalidNumberFieldException e){
