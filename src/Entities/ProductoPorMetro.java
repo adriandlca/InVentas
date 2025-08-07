@@ -7,11 +7,6 @@ public class ProductoPorMetro extends Producto {
     }
 
     @Override
-    public double getGanancia() {
-        return getMontoDeVenta() - getMontoDeCompra();
-    }
-
-    @Override
     public double getMontoDeCompra() {
         return getWidthMeters()*getPriceBuyxMeters();
     }

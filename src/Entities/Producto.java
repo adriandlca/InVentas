@@ -25,7 +25,9 @@ public abstract class Producto {
     public double getPriceBuyxMeters() { return priceBuyxMeters; }
     public double getPriceSellxMeters() { return priceSellxMeters; }
 
-    public abstract double getGanancia();
+    public double getGanancia() {
+        return getMontoDeVenta() - getMontoDeCompra();
+    }
     public abstract double getMontoDeVenta();
     public abstract double getMontoDeCompra();
 
