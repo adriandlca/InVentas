@@ -4,6 +4,7 @@ import Controller.ClearTableController;
 import Controller.UpdateTableController;
 import Entities.Producto;
 import Entities.ProductoPorMetro;
+import Entities.ProductoPorUnidad;
 import Exceptions.InvalidNumberFieldException;
 import Validators.ValidarFormularioDelProducto;
 
@@ -35,16 +36,20 @@ public class Principal {
     DefaultTableModel miModelo;
     String[] cabecera ={"N°","Nombre del Producto","Cantidad","Ancho","Largo","P. Compra unitario","P. Venta Unitaria","Costo total","Ingreso total","Ganancia"};
     String[][] data={};
+    ButtonGroup group = new ButtonGroup();
 
     private ArrayList<Producto> listaProductos = new ArrayList<Producto>();
 
     public Principal() {
         miModelo = new DefaultTableModel(data,cabecera);
         tblTablaDeProductos.setModel(miModelo);
+        
+        group.add(porMetroRadioButton);
+        group.add(porUnidadRadioButton);
+        
         agregarProductoBtnAction();
     }
-
-
+    
     private void agregarProductoBtnAction() {
         agregarProductoButton.addActionListener(new ActionListener() {
             @Override
@@ -83,7 +88,6 @@ public class Principal {
         String largo = txtLargo.getText();
 
         ValidarFormularioDelProducto validar = new ValidarFormularioDelProducto();
-
         if(!nombreProducto.isEmpty() && !cantidad.isEmpty() && !precioCompraxMetro.isEmpty() && !precioVentaxMetro.isEmpty() && !ancho.isEmpty() && !largo.isEmpty()){
             try{
                 if(validar.CamposDeNumeros(cantidad) && validar.CamposDeNumeros(precioCompraxMetro) && validar.CamposDeNumeros(precioVentaxMetro) && validar.CamposDeNumeros(ancho) && validar.CamposDeNumeros(largo)){
@@ -92,8 +96,14 @@ public class Principal {
                     double precioCompraxMetroV = Double.parseDouble(txtPrecioCompraxMetro.getText());
                     double anchoV = Double.parseDouble(txtAncho.getText());
                     double largoV = Double.parseDouble(txtLargo.getText());
-                    Producto producto = new ProductoPorMetro(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
-                    listaProductos.add(producto);
+                    Producto producto;
+                    if(group.isSelected(porMetroRadioButton.getModel())){
+                        producto = new ProductoPorMetro(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
+                        listaProductos.add(producto);
+                    } else if (group.isSelected(porUnidadRadioButton.getModel())) {
+                         producto = new ProductoPorUnidad(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
+                        listaProductos.add(producto);
+                    }
                 }
             }catch (InvalidNumberFieldException e){
                 JOptionPane.showMessageDialog(null,e.getMessage(),"Dato invalido",JOptionPane.WARNING_MESSAGE);
