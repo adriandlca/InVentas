@@ -1,3 +1,4 @@
+import Views.MenuPrincipal;
 import Views.Principal;
 
 import javax.swing.*;
@@ -8,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Inventario");
-            Principal form = new Principal();
+            MenuPrincipal form = new MenuPrincipal();
 
             frame.setContentPane(form.getVentana());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
