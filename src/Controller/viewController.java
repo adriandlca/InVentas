@@ -1,7 +1,5 @@
 package Controller;
 
-import Views.Principal;
-
 import javax.swing.*;
 
 public class viewController {
