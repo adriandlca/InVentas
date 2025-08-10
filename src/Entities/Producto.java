@@ -7,6 +7,7 @@ public abstract class Producto {
     private double widthMeters, heightMeters;
     private double priceSellxMeters;
     private double priceBuyxMeters;
+    private double gastosMovilidad = 0;
 
 
     public Producto(String productName, int amount, double widthMeters, double heightMeters, double priceBuyxMeters, double priceSellxMeters) {
@@ -24,11 +25,13 @@ public abstract class Producto {
     public double getHeightMeters() { return heightMeters; }
     public double getPriceBuyxMeters() { return priceBuyxMeters; }
     public double getPriceSellxMeters() { return priceSellxMeters; }
+    public double getGastosMovilidad() {return gastosMovilidad;}
 
-    public double getGanancia() {
-        return getMontoDeVenta() - getMontoDeCompra();
-    }
+    public double getGanancia() {return getMontoDeVenta() - getMontoDeCompra();}
     public abstract double getMontoDeVenta();
     public abstract double getMontoDeCompra();
 
+    public void agregasGastosMovilidad(double costoMovilidad, int cantidadProductos){
+        gastosMovilidad  =  costoMovilidad/ ( (double) cantidadProductos );
+    }
 }

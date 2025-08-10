@@ -39,7 +39,7 @@ public class Inventario extends JPanel{
 
 
     DefaultTableModel miModelo;
-    String[] cabecera ={"N°","Nombre del Producto","Cantidad","Ancho","Largo","P. Compra unitario","P. Venta Unitaria","Costo total","Ingreso total","Ganancia"};
+    String[] cabecera ={"N°","Nombre del Producto","Cantidad","Ancho","Largo","P. Compra unitario","P. Venta Unitaria", "Gastos","Costo total","Ingreso total","Ganancia"};
     String[][] data={};
     ButtonGroup group = new ButtonGroup();
 
@@ -142,18 +142,41 @@ public class Inventario extends JPanel{
         String ancho = txtAncho.getText();
         String largo = txtLargo.getText();
 
+        String costoMovilidad="";
+        String cantidadProductosTotal="";
+
+        if(hayGastosPorMovilidad()){
+            costoMovilidad = txtCostoMovilidad.getText();
+            cantidadProductosTotal = txtCantidadDeProductos.getText();
+        }
+
         ValidarFormularioDelProducto validar = new ValidarFormularioDelProducto();
         if(!nombreProducto.isEmpty() && !cantidad.isEmpty() && !precioCompraxMetro.isEmpty() && !precioVentaxMetro.isEmpty() && !ancho.isEmpty() && !largo.isEmpty()){
             try{
                 if(validar.CamposDeNumeros(cantidad) && validar.CamposDeNumeros(precioCompraxMetro) && validar.CamposDeNumeros(precioVentaxMetro) && validar.CamposDeNumeros(ancho) && validar.CamposDeNumeros(largo)){
-                    int cantidadV = Integer.parseInt(txtCantidad.getText());
-                    double precioVentaxMetroV = Double.parseDouble(txtPrecioVentaxMetro.getText());
-                    double precioCompraxMetroV = Double.parseDouble(txtPrecioCompraxMetro.getText());
-                    double anchoV = Double.parseDouble(txtAncho.getText());
-                    double largoV = Double.parseDouble(txtLargo.getText());
+
                     Producto producto;
+                    int cantidadV = Integer.parseInt(cantidad);
+                    double precioVentaxMetroV = Double.parseDouble(precioVentaxMetro);
+                    double precioCompraxMetroV = Double.parseDouble(precioCompraxMetro);
+                    double anchoV = Double.parseDouble(ancho);
+                    double largoV = Double.parseDouble(largo);
+
+                    double costoMovilidadV = 0;
+                    int cantidadProductosTotalV = 0;
+
+                    if( hayGastosPorMovilidad() ) {
+                        if( !costoMovilidad.isEmpty() && !cantidadProductosTotal.isEmpty() ){
+                            if( validar.CamposDeNumeros(costoMovilidad) && validar.CamposDeNumeros(cantidadProductosTotal) ){
+                                costoMovilidadV = Double.parseDouble(costoMovilidad);
+                                cantidadProductosTotalV = Integer.parseInt(cantidadProductosTotal);
+                            }else{ JOptionPane.showMessageDialog(null,"Ingrese datos validos (solo números)","Error de datos ingresados",JOptionPane.WARNING_MESSAGE);}
+                        }else{JOptionPane.showMessageDialog(null,"los campos no deben de estar vacios","Error de campos",JOptionPane.WARNING_MESSAGE);}
+                    }
+
                     if(group.isSelected(porMetroRadioButton.getModel())){
                         producto = new ProductoPorMetro(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);
+                        producto.agregasGastosMovilidad(costoMovilidadV,cantidadProductosTotalV);
                         listaProductos.add(producto);
                     } else if (group.isSelected(porUnidadRadioButton.getModel())) {
                         producto = new ProductoPorUnidad(nombreProducto,cantidadV,largoV,anchoV,precioCompraxMetroV,precioVentaxMetroV);

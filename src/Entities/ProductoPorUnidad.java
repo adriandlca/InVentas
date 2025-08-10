@@ -7,6 +7,14 @@ public class ProductoPorUnidad extends Producto{
     }
 
     @Override
+    public double getGanancia() {
+        if(getGastosMovilidad() > 0){
+            return  ( getPriceSellxMeters() - (getPriceBuyxMeters() + getGastosMovilidad()) ) * getAmount();
+        }
+        return getMontoDeVenta()-getMontoDeCompra();
+    }
+
+    @Override
     public double getMontoDeVenta() {
         return getAmount() * getPriceSellxMeters();
     }

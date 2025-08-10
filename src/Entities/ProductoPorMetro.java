@@ -7,6 +7,14 @@ public class ProductoPorMetro extends Producto {
     }
 
     @Override
+    public double getGanancia() {
+        if(getGastosMovilidad() > 0){
+            return  ( getPriceSellxMeters() - (getPriceBuyxMeters() + getGastosMovilidad()) ) * getWidthMeters();
+        }
+        return getMontoDeVenta()-getMontoDeCompra();
+    }
+
+    @Override
     public double getMontoDeCompra() {
         return getWidthMeters()*getPriceBuyxMeters();
     }

@@ -11,7 +11,7 @@ public class UpdateTableController {
         int num = 0;
         for(Producto prod: listaProductos){
             num++;
-            String cantidad, largo, ancho, precioVenta, precioCompra, ganancia, montoVenta, montoCompra;
+            String cantidad, largo, ancho, precioVenta, precioCompra, ganancia, montoVenta, montoCompra, gasto;
             DecimalFormat df2 = new DecimalFormat("####.00");
             cantidad = df2.format(prod.getAmount());
             largo = df2.format(prod.getWidthMeters());
@@ -21,8 +21,9 @@ public class UpdateTableController {
             ganancia = df2.format(prod.getGanancia());
             montoVenta = df2.format(prod.getMontoDeVenta());
             montoCompra = df2.format(prod.getMontoDeCompra());
+            gasto = df2.format(prod.getGastosMovilidad());
             //cabecera ={"N°","Nombre del Producto","Cantidad","Ancho","Largo","P. Compra unitario","P. Venta Unitaria","Costo total","Ingreso total","Ganancia"};
-            Object [] fila = {num, prod.getProductName(),cantidad,ancho,largo, precioCompra, precioVenta, montoCompra, montoVenta, ganancia};
+            Object [] fila = {num, prod.getProductName(),cantidad,ancho,largo, precioCompra, precioVenta, gasto, montoCompra, montoVenta, ganancia};
             miModelo.addRow(fila);
         }
         num = 0;
