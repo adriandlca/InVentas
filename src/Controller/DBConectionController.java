@@ -16,5 +16,6 @@ public class DBConectionController {
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null,e.getMessage(),"Error!",JOptionPane.ERROR_MESSAGE);
         }
+        return conn;
     }
 }
