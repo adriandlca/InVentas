@@ -9,7 +9,6 @@ public abstract class Producto {
     private double priceBuyxMeters;
     private double gastosMovilidad = 0;
 
-
     public Producto(String productName, int amount, double widthMeters, double heightMeters, double priceBuyxMeters, double priceSellxMeters) {
         this.productName = productName;
         this.amount = amount;
